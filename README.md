@@ -1,0 +1,1 @@
+# SpecialK Config Viewer
