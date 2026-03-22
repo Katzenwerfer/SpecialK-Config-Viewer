@@ -3,13 +3,11 @@ if (-not (Test-Path -Path '.\.ext\config.cpp')) {
     & curl.exe -LO --output-dir '.\.ext' 'https://github.com/SpecialKO/SpecialK/raw/refs/heads/main/src/config.cpp'
 }
 
-$content = Get-Content -Path '.\.ext\config.cpp'
+$content = Get-Content -Path '.\.ext\config.cpp' -Raw
 
-$configEntries = $content | Where-Object {
-    $PSItem -match '^\s*ConfigEntry'
-}
+$configEntries = $content | Select-String -Pattern 'ConfigEntry\s*\([\s\S]+?(?=\),)\),(?=\r\n)' -AllMatches
 
-$results = foreach ($entry in $configEntries) {
+$results = foreach ($entry in $configEntries.Matches.Value) {
     if ($entry -match 'ConfigEntry\s*\(([^,]+),\s*L"([^"]+)",\s*([^,]+),\s*L"([^"]+)",\s*L"([^"]+)"\)') {
         [PSCustomObject]@{
             Parameter   = $Matches[1]
