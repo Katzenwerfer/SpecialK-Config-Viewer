@@ -5,7 +5,9 @@ if (-not (Test-Path -Path '.\.ext\config.cpp')) {
 
 $content = Get-Content -Path '.\.ext\config.cpp' -Raw
 
-$configEntries = $content | Select-String -Pattern 'ConfigEntry\s*\([\s\S]+?(?=\),)\),(?=\r\n)' -AllMatches
+$trimmedContent = $content | Select-String -Pattern 'static const std::initializer_list <param_decl_s> params_to_build[\s\S]+for \( auto& decl : params_to_build \)'
+
+$configEntries = $trimmedContent.Matches.Value | Select-String -Pattern '(ConfigEntry\s*\([\s\S]+?(?=\),)\),(?=\r\n)' -AllMatches
 
 $results = foreach ($entry in $configEntries.Matches.Value) {
     if ($entry -match 'ConfigEntry\s*\(([^,]+),\s*L"([^"]+)",\s*([^,]+),\s*L"([^"]+)",\s*L"([^"]+)"\)') {
