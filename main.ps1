@@ -20,3 +20,12 @@ $results = foreach ($entry in $configEntries) {
         }
     }
 }
+
+if (Test-Path -Path '.\.out\config.csv') {
+    if (Test-Path -Path '.\.out') {
+        New-Item -Name '.out' -ItemType Directory
+    }
+    Remove-Item -Path '.\.out\config.csv'
+}
+
+$results | Export-Csv -Path '.\.out\config.csv'
