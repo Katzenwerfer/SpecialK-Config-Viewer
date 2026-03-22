@@ -10,7 +10,7 @@ $trimmedContent = $content | Select-String -Pattern 'static const std::initializ
 $configEntries = $trimmedContent.Matches.Value | Select-String -Pattern '(ConfigEntry\s*\([\s\S]+?(?=\),)\),(?=\r\n)' -AllMatches
 
 $results = foreach ($entry in $configEntries.Matches.Value) {
-    if ($entry -match 'ConfigEntry\s*\(([^,]+),\s*L"([^"]+)",\s*([^,]+),\s*L"([^"]+)",\s*L"([^"]+)"\)') {
+    if ($entry -match 'ConfigEntry\s*\(([^,]+),\s*L"([\s\S]+?(?=" ?,)" ?,)\s*([^,]+),\s*L"([^"]+)",\s*L"([^"]+)"\),') {
         [PSCustomObject]@{
             Parameter   = $Matches[1]
             Description = $Matches[2]
