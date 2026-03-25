@@ -8,4 +8,6 @@ Currently I've only developed a PowerShell script to:
 2. extract data from it
 3. save it into a CSV file
 
-I plan on eventually doing a web app for this, though no idea when I'll get to it.
+I plan on eventually doing a web app or an extension for this, though no idea when I'll get to it.
+
+In the meantime, there exists this [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1r48JWZX4z8mgAZ2hssK56rOnP0YBC5TDXseZzmKLbV8/) document to visualize the data, courtesy of strangorth in the SK Discord server.
