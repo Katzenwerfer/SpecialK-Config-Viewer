@@ -30,11 +30,11 @@ $normalizedEntries = foreach ($entry in $configEntries.Matches.Value) {
     }
 }
 
-if (-not (Test-Path -Path '.\.out\config.csv')) {
-    if (-not (Test-Path -Path '.\.out')) {
-        New-Item -Name '.out' -ItemType Directory
-    }
+if (Test-Path -Path '.\.out\config.csv') {
     Remove-Item -Path '.\.out\config.csv'
+}
+elseif (-not (Test-Path -Path '.\.out')) {
+    New-Item -Name '.out' -ItemType Directory
 }
 
 $normalizedEntries | Export-Csv -Path '.\.out\config.csv'
