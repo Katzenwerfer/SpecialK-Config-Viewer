@@ -1,5 +1,5 @@
 if (-not (Test-Path -Path '.\.ext\config.cpp')) {
-    New-Item -Name '.ext' -ItemType Directory
+    New-Item -Name '.ext' -ItemType Directory | Out-Null
     & curl.exe -LO --output-dir '.\.ext' 'https://github.com/SpecialKO/SpecialK/raw/refs/heads/main/src/config.cpp'
 }
 
@@ -34,7 +34,7 @@ if (Test-Path -Path '.\.out\config.csv') {
     Remove-Item -Path '.\.out\config.csv'
 }
 elseif (-not (Test-Path -Path '.\.out')) {
-    New-Item -Name '.out' -ItemType Directory
+    New-Item -Name '.out' -ItemType Directory | Out-Null
 }
 
 $normalizedEntries | Export-Csv -Path '.\.out\config.csv'
